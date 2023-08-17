@@ -8,13 +8,21 @@ let myXPos = 0;
 let myYPos = 0;
 let randomX;
 let randomY;
-let myspeed = 5
+let myspeed = 10
 
-function updateTimer(){
-    if (timer > 0) {
-        console.log(timer);
-        const interval = setInterval(timer--, 1000);
-        return timer;
+let interval;
+
+function updateTimer() {
+    if (timer > 0 && !interval) {
+        interval = setInterval(() => {
+            if (timer > 0) {
+                timer--;
+                console.log(timer);
+            } else {
+                clearInterval(interval);
+                interval = null;
+            }
+        }, 1000);
     }
 }
 randomX = Math.floor(Math.random() * 1630); 
@@ -128,7 +136,7 @@ let plasticTop, plasticBottom, plasticRight,plasticLeft;
     text("Timer: " + timer, 200, 30)
    
       }
-      if (score == 1){
+      if (timer == 40){
         state = 3
         clear()
         background("red")
@@ -136,6 +144,13 @@ let plasticTop, plasticBottom, plasticRight,plasticLeft;
         image(explosion, 600, 300, 700, 700)
         fill(0,255,150)
         text("You couldn't recycle enough plastic so the carbon emissions got too high", 500, 100)
+    } if (score ==5) {
+      state = 4
+        clear()
+        background("blue")
+        background(globe)
+        fill(0,255,150)
+        text("You successfully kept your the carbon emissions low! great job protecting the environment ", 300, 100)
     }
     }
   function mouseClicked() {
